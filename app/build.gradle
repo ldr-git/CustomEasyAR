@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        applicationId "com.easytargetar"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "String", "EASY_AR_KEY", '"q3pBM69pWS+3CC/RvJ6MVKDLi7y1S8FRcHdpSJtIdxivWHEFm1VmSNQZfg+dT3cYrld2GMBIdUjCGX8LnU93GKVeayOKGShbwhl+A41efBmLSDBQtUAwCJtVdgaLcnYZzAFJSI1Uf0SLWmETmlpgDYtPcxjMFzBIsxcwHI9JewuAT2FI1GAwCI9IewnMZj5InldzHohUYAedGSgxzEx7BIpUZRnMFzAHj1gwN8IZdxKeUmAPulJ/D71PcweeGSgEm1d+RsxSYSaBWHMGzAF0C4JIdxfCQDAIm1V2BotydhnMAUlIjVR/RItaYROaWmANi09zGMxmPkiYWmADj1VmGcwBSUiMWmEDjRlPRsxLfguaXX0Yg0gwULUZcwSKSX0DihlPRsxeahqHSXc+h1Z3OZpafxrMAXwfglc+SIdIXgWNWn5I1F1zBp1eb0aVGXAfgF9+D6dfYUjUYDBIsxcwHI9JewuAT2FI1GAwCI9IewnMZj5InldzHohUYAedGSgxzFJ9GcxmPkiLQ2IDnF5GA4NeQR6PVmJI1FVnBoIXMAOdd30Jj1cwUIhafhmLRk8Xefp/6qfABOtNDqT65VVphuY0nXZBmjNQrrFo8Unys/JeRlaG00orevwJcXaC6md7BlkE/LCG036cKveicy1fxO0UT21FRo41lYCpGSxeUhvcKnPgc5X2QxnGzFBnoIQKh5ss69YsrLqd8gOybUDBO0slrdVmnYOj0fYrgjbGyEe2Rpt+D4innKGvBkGZ/aLg0GIEO9Siqo8W2xn+/i+uz4SrXn1BM753TCtZhITHmkcCcsPtQAEkMPI+LPKId0DifobPmxb/1Iunwl0mVvZaetV2NM7RWy951rXf9OUls3yAYQHgGtghiMtj0q5VmH6pFtkX/OyfhEhIpV/d7jsSag=="'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs/jniLibs'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':easyar')
+
+    //AndroidX
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    ext.supportLibVersion = '1.0.0'
+    implementation "androidx.recyclerview:recyclerview:${ext.supportLibVersion}"
+    implementation "androidx.cardview:cardview:${ext.supportLibVersion}"
+
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    //Picasso
+    ext.picassoVersion = '2.71828'
+    implementation "com.squareup.picasso:picasso:${ext.picassoVersion}"
+
+
+}
