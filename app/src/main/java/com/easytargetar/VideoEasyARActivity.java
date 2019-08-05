@@ -53,12 +53,23 @@ public class VideoEasyARActivity extends VideoTargetActivity {
 
     @Override
     public void showLoading() {
-        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override
     public void hideLoading() {
-        findViewById(R.id.progressBar).setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

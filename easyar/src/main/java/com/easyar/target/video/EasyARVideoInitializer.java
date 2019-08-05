@@ -341,7 +341,7 @@ public class EasyARVideoInitializer {
                             }
                             ImageTarget imagetarget = target instanceof ImageTarget ? (ImageTarget) (target) : null;
                             if (imagetarget != null) {
-                                if (videoRenderer != null) {
+                                if (video != null && videoRenderer != null) {
                                     video.update();
                                     ArrayList<Image> images = ((ImageTarget) target).images();
                                     Image targetImg = images.get(0);

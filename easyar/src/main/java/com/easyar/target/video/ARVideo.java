@@ -21,6 +21,9 @@ import cn.easyar.VideoStatus;
 import cn.easyar.VideoType;
 
 public class ARVideo {
+
+    private static final String TAG = ARVideo.class.getSimpleName();
+
     private VideoPlayer player;
     private boolean prepared;
     private boolean found;
@@ -36,10 +39,12 @@ public class ARVideo {
     }
 
     public void dispose() {
+        Log.d(TAG, "dispose()");
         player.close();
     }
 
     public void openVideoFileFromAssetsPath(String path, int texid, DelayedCallbackScheduler scheduler) {
+        targetCallback.showLoading();
         this.path = path;
         player.setRenderTexture(TextureId.fromInt(texid));
         player.setVideoType(VideoType.Normal);
@@ -52,6 +57,7 @@ public class ARVideo {
     }
 
     public void openTransparentVideoFile(String path, int texid, DelayedCallbackScheduler scheduler) {
+        targetCallback.showLoading();
         this.path = path;
         player.setRenderTexture(TextureId.fromInt(texid));
         player.setVideoType(VideoType.TransparentSideBySide);
@@ -64,6 +70,8 @@ public class ARVideo {
     }
 
     public void openVideoFileFromAbsolutePath(String url, int texid, DelayedCallbackScheduler scheduler) {
+        Log.d(TAG, "openVideoFileFromAbsolutePath: " + url);
+        targetCallback.showLoading();
         this.path = url;
         player.setRenderTexture(TextureId.fromInt(texid));
         player.setVideoType(VideoType.Normal);
@@ -91,6 +99,7 @@ public class ARVideo {
     }
 
     public void onFound() {
+        Log.d(TAG, "onFound()");
         found = true;
         if (prepared) {
             targetCallback.hideLoading();
@@ -99,6 +108,7 @@ public class ARVideo {
     }
 
     public void onLost() {
+        Log.d(TAG, "onLost()");
         found = false;
         if (prepared) {
             player.pause();
@@ -110,6 +120,7 @@ public class ARVideo {
     }
 
     public void update() {
+        Log.d(TAG, "update()");
         player.updateFrame();
     }
 }
