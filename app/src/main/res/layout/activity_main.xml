@@ -19,10 +19,11 @@
 		android:id="@+id/buttonLaunchARImage"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="132dp"
+		android:layout_marginEnd="131dp"
 		android:text="Launch AR Image"
 		app:layout_constraintBottom_toTopOf="@+id/buttonLaunchARVideo"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 	
@@ -30,11 +31,24 @@
 		android:id="@+id/buttonLaunchARVideo"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="133dp"
+		android:layout_marginEnd="133dp"
 		android:text="Launch AR Video"
-		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/buttonLaunchARVideoLocal"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/buttonLaunchARImage" />
+	
+	<Button
+		android:id="@+id/buttonLaunchARVideoLocal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="110dp"
+		android:layout_marginEnd="109dp"
+		android:text="Launch AR Video Local"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/buttonLaunchARVideo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

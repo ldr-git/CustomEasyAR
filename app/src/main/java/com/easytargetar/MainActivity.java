@@ -32,5 +32,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        findViewById(R.id.buttonLaunchARVideoLocal)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(VideoEasyARActivity.newIntent(MainActivity.this, VideoEasyARActivity.class, FileHelper.getPath(FileHelper.Path.RESOURCE, "target/ar-target.jpg"), "target", "file://" + FileHelper.getPath(MainActivity.this, FileHelper.Path.RESOURCE, "overlay", "target_overlay.mp4")));
+                    }
+                });
+
     }
 }
