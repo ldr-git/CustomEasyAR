@@ -11,15 +11,16 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.easyar.helper.BundleHelper;
 import com.easyar.base.BaseTargetActivity;
+import com.easyar.helper.BundleHelper;
+import com.easyar.interfaces.SnapshotCallback;
 import com.easyar.target.image.interfaces.ImageTargetCallback;
 
 import java.util.HashMap;
 
 import cn.easyar.Engine;
 
-public abstract class ImageTargetActivity extends BaseTargetActivity implements ImageTargetCallback {
+public abstract class ImageTargetActivity extends BaseTargetActivity implements ImageTargetCallback, SnapshotCallback {
 
     private static final String TAG = ImageTargetActivity.class.getSimpleName();
 
@@ -127,6 +128,10 @@ public abstract class ImageTargetActivity extends BaseTargetActivity implements 
             glView.onPause();
         }
         super.onPause();
+    }
+
+    public void snapshot() {
+        glView.snapshot();
     }
 
     @Override

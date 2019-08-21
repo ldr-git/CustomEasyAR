@@ -1,5 +1,6 @@
 package com.easytargetar;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,14 @@ public class VideoEasyARActivity extends VideoTargetActivity {
 
         initialized();
 
+        findViewById(R.id.buttonSnapshot)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snapshot();
+                    }
+                });
+
     }
 
     @Override
@@ -83,5 +92,15 @@ public class VideoEasyARActivity extends VideoTargetActivity {
             }
         });
 
+    }
+
+    @Override
+    public void snapshot(final Bitmap bitmap) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((ImageView) findViewById(R.id.imageViewTarget)).setImageBitmap(bitmap);
+            }
+        });
     }
 }

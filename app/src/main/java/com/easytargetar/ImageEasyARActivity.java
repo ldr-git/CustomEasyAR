@@ -1,6 +1,7 @@
 package com.easytargetar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,15 @@ import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.easyar.interfaces.SnapshotCallback;
 import com.easyar.target.image.ImageTargetActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import cn.easyar.StorageType;
 
-public class ImageEasyARActivity extends ImageTargetActivity {
+public class ImageEasyARActivity extends ImageTargetActivity implements SnapshotCallback {
 
     @Override
     protected ViewGroup getDisplayView() {
@@ -44,6 +48,14 @@ public class ImageEasyARActivity extends ImageTargetActivity {
 
         initialized();
 
+        findViewById(R.id.buttonSnapshot)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snapshot();
+                    }
+                });
+
     }
 
     @Override
@@ -60,4 +72,13 @@ public class ImageEasyARActivity extends ImageTargetActivity {
         return StorageType.Absolute;
     }
 
+    @Override
+    public void snapshot(final Bitmap bitmap) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((ImageView) findViewById(R.id.imageViewTarget)).setImageBitmap(bitmap);
+            }
+        });
+    }
 }

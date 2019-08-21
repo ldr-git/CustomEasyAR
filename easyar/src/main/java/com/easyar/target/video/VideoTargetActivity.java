@@ -13,13 +13,14 @@ import android.widget.Toast;
 
 import com.easyar.base.BaseTargetActivity;
 import com.easyar.helper.BundleHelper;
+import com.easyar.interfaces.SnapshotCallback;
 import com.easyar.target.video.interfaces.VideoTargetCallback;
 
 import java.util.HashMap;
 
 import cn.easyar.Engine;
 
-public abstract class VideoTargetActivity extends BaseTargetActivity implements VideoTargetCallback {
+public abstract class VideoTargetActivity extends BaseTargetActivity implements VideoTargetCallback, SnapshotCallback {
 
     public static final String TARGET_VIDEO_OVERLAY = "target-video-overlay";
 
@@ -130,6 +131,10 @@ public abstract class VideoTargetActivity extends BaseTargetActivity implements 
             glView.onPause();
         }
         super.onPause();
+    }
+
+    public void snapshot() {
+        glView.snapshot();
     }
 
     @Override

@@ -11,12 +11,18 @@ package com.easyar.target.image;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import com.easyar.interfaces.SnapshotCallback;
 import com.easyar.target.image.interfaces.ImageTargetCallback;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -37,11 +43,17 @@ public class ImageGLView extends GLSurfaceView {
 
     private EasyARImageInitializer initializer;
     private ImageTargetCallback targetCallback;
+    private SnapshotCallback snapshotCallback;
+
+    private boolean takeSnapshot;
 
     public ImageGLView(Context context) {
         super(context);
         if (context instanceof ImageTargetCallback) {
             targetCallback = (ImageTargetCallback) context;
+        }
+        if (context instanceof SnapshotCallback) {
+            snapshotCallback = (SnapshotCallback) context;
         }
         //setPreserveEGLContextOnPause(true); //uncomment if EGL context need to be preserved on pause
         setEGLContextFactory(new ContextFactory());
@@ -73,6 +85,33 @@ public class ImageGLView extends GLSurfaceView {
                     return;
                 }
                 initializer.render(width, height, GetScreenRotation());
+                if (takeSnapshot) {
+                    try {
+                        int screenshotSize = width * height;
+                        ByteBuffer bb = ByteBuffer.allocateDirect(screenshotSize * 4);
+                        bb.order(ByteOrder.nativeOrder());
+                        GLES20.glReadPixels(0, 0, width, height, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, bb);
+                        int pixelsBuffer[] = new int[screenshotSize];
+                        bb.asIntBuffer().get(pixelsBuffer);
+                        bb = null;
+
+                        for (int i = 0; i < screenshotSize; ++i) {
+                            // The alpha and green channels' positions are preserved while the      red and blue are swapped
+                            pixelsBuffer[i] = ((pixelsBuffer[i] & 0xff00ff00)) | ((pixelsBuffer[i] & 0x000000ff) << 16) | ((pixelsBuffer[i] & 0x00ff0000) >> 16);
+                        }
+
+                        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                        bitmap.setPixels(pixelsBuffer, screenshotSize - width, -width, 0, 0, width, height);
+
+                        if (snapshotCallback != null) {
+                            snapshotCallback.snapshot(bitmap);
+                        }
+                        takeSnapshot = false;
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        takeSnapshot = false;
+                    }
+                }
             }
         });
         this.setZOrderMediaOverlay(true);
@@ -142,6 +181,12 @@ public class ImageGLView extends GLSurfaceView {
                 break;
         }
         return orientation;
+    }
+
+    public void snapshot() {
+
+        this.takeSnapshot = true;
+
     }
 
     private static class ContextFactory implements GLSurfaceView.EGLContextFactory {
