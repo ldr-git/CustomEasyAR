@@ -9,12 +9,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.easyar.interfaces.SnapshotCallback;
 import com.easyar.target.video.VideoTargetActivity;
 import com.squareup.picasso.Picasso;
 
 import cn.easyar.StorageType;
 
-public class VideoEasyARActivity extends VideoTargetActivity {
+public class VideoEasyARActivity extends VideoTargetActivity implements SnapshotCallback {
 
     @Override
     protected ViewGroup getDisplayView() {

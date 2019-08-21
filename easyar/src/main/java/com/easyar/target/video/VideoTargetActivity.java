@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 import cn.easyar.Engine;
 
-public abstract class VideoTargetActivity extends BaseTargetActivity implements VideoTargetCallback, SnapshotCallback {
+public abstract class VideoTargetActivity extends BaseTargetActivity implements VideoTargetCallback {
 
     public static final String TARGET_VIDEO_OVERLAY = "target-video-overlay";
 

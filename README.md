@@ -17,7 +17,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	        implementation 'com.github.ldr-git:CustomEasyAR:v0.2.0'
+	        implementation 'com.github.ldr-git:CustomEasyAR:v0.3.0'
 	}
 ```
 

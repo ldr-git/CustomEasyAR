@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 import cn.easyar.Engine;
 
-public abstract class ImageTargetActivity extends BaseTargetActivity implements ImageTargetCallback, SnapshotCallback {
+public abstract class ImageTargetActivity extends BaseTargetActivity implements ImageTargetCallback {
 
     private static final String TAG = ImageTargetActivity.class.getSimpleName();
 
