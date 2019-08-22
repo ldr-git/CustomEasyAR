@@ -12,6 +12,7 @@ import android.opengl.GLES20;
 import android.util.Log;
 
 import com.easyar.helper.Preferences;
+import com.easyar.helper.StringHelper;
 import com.easyar.target.BGRenderer;
 import com.easyar.target.video.interfaces.VideoTargetCallback;
 
@@ -182,7 +183,7 @@ public class EasyARVideoInitializer {
             return;
         }
         ImageTracker tracker = ImageTracker.create();
-        if (targetCallback != null) {
+        if (targetCallback != null && !StringHelper.isNullOrBlank(targetCallback.getTargetKey()) && !StringHelper.isNullOrBlank(targetCallback.getTargetPath())) {
             switch (targetCallback.getStorageType()) {
                 case StorageType.Absolute:
                     loadFromImageFromAbsolutePath(tracker, targetCallback.getTargetPath(), targetCallback.getTargetKey());

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.easyar.helper.StringHelper;
 import com.easyar.interfaces.SnapshotCallback;
 import com.easyar.target.video.VideoTargetActivity;
 import com.squareup.picasso.Picasso;
@@ -42,7 +43,9 @@ public class VideoEasyARActivity extends VideoTargetActivity implements Snapshot
             }
         });
 
-        Picasso.get().load("file://" + getTargetPath()).into(((ImageView) findViewById(R.id.imageViewTarget)));
+        if (!StringHelper.isNullOrBlank(getTargetPath())) {
+            Picasso.get().load("file://" + getTargetPath()).into(((ImageView) findViewById(R.id.imageViewTarget)));
+        }
 
         initialized();
 

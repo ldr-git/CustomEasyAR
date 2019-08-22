@@ -12,6 +12,7 @@ import android.opengl.GLES20;
 import android.util.Log;
 
 import com.easyar.helper.Preferences;
+import com.easyar.helper.StringHelper;
 import com.easyar.target.BGRenderer;
 import com.easyar.target.image.interfaces.ImageTargetCallback;
 
@@ -164,7 +165,7 @@ public class EasyARImageInitializer {
             return;
         }
         ImageTracker tracker = ImageTracker.create();
-        if (targetCallback != null) {
+        if (targetCallback != null && !StringHelper.isNullOrBlank(targetCallback.getTargetKey()) && !StringHelper.isNullOrBlank(targetCallback.getTargetPath())) {
             switch (targetCallback.getStorageType()) {
                 case StorageType.Absolute:
                     loadFromImageFromAbsolutePath(tracker, targetCallback.getTargetPath(), targetCallback.getTargetKey());
@@ -181,7 +182,7 @@ public class EasyARImageInitializer {
             }
         }
 
-        tracker.setSimultaneousNum(6);
+        tracker.setSimultaneousNum(1);
         trackers.add(tracker);
 
         feedbackFrameFork = FeedbackFrameFork.create(trackers.size());
