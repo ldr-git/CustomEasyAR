@@ -137,6 +137,10 @@ public abstract class VideoTargetActivity extends BaseTargetActivity implements 
         glView.snapshot();
     }
 
+    public void toggleCamera() {
+        glView.toggleCamera();
+    }
+
     @Override
     public String getTargetPath() {
         return getIntent().getStringExtra(TARGET_PATH);

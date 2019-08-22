@@ -28,4 +28,12 @@ public class StringHelper {
         return isURL;
     }
 
+    public static boolean isNullOrBlank(String s) {
+        return (s == null || s.trim().equals(""));
+    }
+
+    public static boolean isNullOrBlank(CharSequence s) {
+        return (s == null || s.toString().trim().equals(""));
+    }
+
 }

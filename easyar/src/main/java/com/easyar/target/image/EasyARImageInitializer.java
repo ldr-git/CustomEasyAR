@@ -11,6 +11,7 @@ package com.easyar.target.image;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import com.easyar.helper.Preferences;
 import com.easyar.target.BGRenderer;
 import com.easyar.target.image.interfaces.ImageTargetCallback;
 
@@ -69,6 +70,8 @@ public class EasyARImageInitializer {
     private ImageTargetCallback targetCallback;
     private boolean match = false;
 
+    private int cameraType = Preferences.getInt("cameraType", CameraDeviceType.Back);
+
     public EasyARImageInitializer(ImageTargetCallback targetCallback) {
         this.targetCallback = targetCallback;
         scheduler = new DelayedCallbackScheduler();
@@ -126,6 +129,20 @@ public class EasyARImageInitializer {
         bgRenderer = new BGRenderer();
     }
 
+    public void toggleCamera() {
+        Log.d(TAG, "BEFORE => toggleCamera: " + (cameraType == CameraDeviceType.Back ? "BACK" : "FRONT"));
+        if (cameraType == CameraDeviceType.Back) {
+            cameraType = CameraDeviceType.Front;
+        } else {
+            cameraType = CameraDeviceType.Back;
+        }
+        Log.d(TAG, "AFTER => toggleCamera: " + (cameraType == CameraDeviceType.Back ? "BACK" : "FRONT"));
+        Preferences.setInt("cameraType", cameraType);
+        if (camera != null) {
+            camera.stop();
+        }
+    }
+
     public void initialize() {
         recreate_context();
 
@@ -139,7 +156,7 @@ public class EasyARImageInitializer {
         outputFrameFork = OutputFrameFork.create(2);
 
         boolean status = true;
-        status &= camera.openWithType(CameraDeviceType.Default);
+        status &= camera.openWithType(cameraType);
         camera.setSize(new Vec2I(1280, 720));
         camera.setFocusMode(CameraDeviceFocusMode.Continousauto);
         camera.setBufferCapacity(5 + 7);

@@ -11,6 +11,7 @@ package com.easyar.target.video;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import com.easyar.helper.Preferences;
 import com.easyar.target.BGRenderer;
 import com.easyar.target.video.interfaces.VideoTargetCallback;
 
@@ -75,6 +76,8 @@ public class EasyARVideoInitializer {
 
     private VideoTargetCallback targetCallback;
     private boolean match = false;
+
+    private int cameraType = Preferences.getInt("cameraType", CameraDeviceType.Back);
 
     public EasyARVideoInitializer(VideoTargetCallback targetCallback) {
         this.targetCallback = targetCallback;
@@ -143,6 +146,20 @@ public class EasyARVideoInitializer {
         previousInputFrameIndex = -1;
         bgRenderer = new BGRenderer();
         videoRenderer = new VideoRenderer();
+    }
+
+    public void toggleCamera() {
+        Log.d(TAG, "BEFORE => toggleCamera: " + (cameraType == CameraDeviceType.Back ? "BACK" : "FRONT"));
+        if (cameraType == CameraDeviceType.Back) {
+            cameraType = CameraDeviceType.Front;
+        } else {
+            cameraType = CameraDeviceType.Back;
+        }
+        Log.d(TAG, "AFTER => toggleCamera: " + (cameraType == CameraDeviceType.Back ? "BACK" : "FRONT"));
+        Preferences.setInt("cameraType", cameraType);
+        if (camera != null) {
+            camera.stop();
+        }
     }
 
     public void initialize() {

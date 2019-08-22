@@ -3,6 +3,8 @@ package com.easytargetar;
 import android.app.Application;
 import android.content.Context;
 
+import com.easyar.helper.Preferences;
+
 public class SampleApp extends Application {
 
     private static Context context;
@@ -12,6 +14,7 @@ public class SampleApp extends Application {
         super.onCreate();
 
         context = this;
+        Preferences.init(this, "SampleApp");
 
     }
 

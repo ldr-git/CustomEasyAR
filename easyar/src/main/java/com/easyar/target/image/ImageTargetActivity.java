@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.easyar.base.BaseTargetActivity;
 import com.easyar.helper.BundleHelper;
-import com.easyar.interfaces.SnapshotCallback;
 import com.easyar.target.image.interfaces.ImageTargetCallback;
 
 import java.util.HashMap;
@@ -132,6 +131,10 @@ public abstract class ImageTargetActivity extends BaseTargetActivity implements 
 
     public void snapshot() {
         glView.snapshot();
+    }
+
+    public void toggleCamera() {
+        glView.toggleCamera();
     }
 
     @Override
